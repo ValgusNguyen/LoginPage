@@ -1,19 +1,25 @@
 import React, { useState } from "react";
 import "./login.css";
 import { FaUserCircle, FaLock } from "react-icons/fa";
+import {useForm} from 'react-hook-form'
+import { z } from "zod";
 
 const Login = () => {
+
+  const {register, handleSubmit, formState: {errors} } = useForm()
+  const onSubmit = (data: any) => console.log(data)
+
   return (
     <div className="wrap">
-      <form action="">
+      <form onSubmit={handleSubmit(onSubmit)}>
         <h1>Login</h1>
           <div className="info">
             <FaUserCircle className="icon" />
-            <input type="text" placeholder="Username" required />
+            <input type="email" {...register("email")} placeholder="Email" required />
           </div>
           <div className="info">
             <FaLock className="icon" />
-            <input type="password" placeholder="password" required />
+            <input type="password" {...register("password")} placeholder="Password" required />
           </div>
         <div className="reme">
           <label><input type="checkbox" />Remember me</label>
