@@ -14,11 +14,9 @@ const Login = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <h1>Login</h1>
           <div className="info">
-            <FaUserCircle className="icon" />
             <input type="email" {...register("email")} placeholder="Email" required />
           </div>
           <div className="info">
-            <FaLock className="icon" />
             <input type="password" {...register("password")} placeholder="Password" required />
           </div>
         <div className="reme">
