@@ -1,31 +1,87 @@
 import React, { useState } from "react";
 import "./login.css";
-import { FaUserCircle, FaLock } from "react-icons/fa";
+import {useForm} from 'react-hook-form'
+import { createClient } from "@/utils/supabase/server";
+import { redirect } from 'next/navigation'
 
-const Login = () => {
+const Register = async () => {
+  const supabase = createClient();
+  const signUp = async () => {               
+    await supabase.auth.signUp({
+      email,
+      password,
+      options: {},
+    });
+  };
+  const { error } = await supabase.auth.signUp(data);
+  if (error) {
+    redirect(`${location.origin}/blank`);
+  }
   return (
-    <div className="wrap">
-      <form action="">
-        <h1>Sign Up</h1>
-          <div className="info">
-            <FaUserCircle className="icon" />
-            <input type="text" placeholder="Username" required />
-          </div>
-          <div className="info">
-            <FaLock className="icon" />
-            <input type="password" placeholder="password" required />
-          </div>
-        <div className="submit">
-          <button type="submit">Login</button>
-        </div>
+    <div className="w-[60%] h-4/5 rounded-lg p-6">
+      {/* <form onSubmit={handleSubmit(onSubmit)}> */}
+      <form>
+        <h1 className="text-4xl ">Create new account</h1>
         <div className="register-link">
           <p>
-            Don&quot;t have an account? <a href="#">Register</a>
+            Already A Member? <a href="#">Log in</a>
           </p>
+        </div>
+        {/* <div className="flex relative w-full h-16 mt-7">
+          <h2 className="text-white">First Name</h2>
+          <input
+            type="text"
+            className="w-full h-[60%] bg-transparent border-2 rounded border-red-50 text-xl p-3"
+            required
+          />
+          <h2 className="text-white">Last Name</h2>
+          <input
+            type="text"
+            className="w-full h-[60%] bg-transparent border-2 rounded border-red-50 text-xl p-3"
+            required
+          /> */}
+        {/* </div> */}
+        <div className="relative w-full h-16 mt-7">
+          <h2>Username</h2>
+          <input
+            type="text"
+            className="w-full h-[60%] bg-transparent border-2 rounded border-red-50 text-xl p-3"
+            required
+          />
+        </div>
+        <div className="relative w-full h-16 mt-7">
+          <h2>Email</h2>
+          <input
+            type="email"
+            // {...register("email")}
+            className="w-full h-[60%] bg-transparent border-2 rounded border-red-50 text-xl p-3"
+            placeholder="Email"
+            required
+          />
+        </div>
+        <div className="relative w-full h-16 mt-7">
+          <h2>Password</h2>
+          <input
+            type="password"
+            // {...register("password")}
+            className="w-full h-[60%] bg-transparent border-2 rounded border-red-50 text-xl p-3"
+            placeholder="Password"
+            required
+          />
+        </div>
+        <div className="flex justify-between text-l mt-2 mb-3 "></div>
+        <div className="submit">
+          <button
+            className="w-[60%] h-10 border-2 rounded border-red-50"
+            type="submit"
+            onClick={signUp}
+          >
+            Create Account
+          </button>
         </div>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default Register;
