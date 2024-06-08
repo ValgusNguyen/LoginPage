@@ -12,12 +12,16 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data: any) => registerUser(data);
   type registerUser = {
     username: string;
     email: string;
     password: string;
   };
+  const onSubmit = async (data: any) => {
+    const { username, email, password } = data;
+    await registerUser({ username, email, password });
+  };
+
   const registerUser = async (data: registerUser) => {
     const { error } = await supabase.auth.signUp({
       email: data.email,
@@ -30,10 +34,11 @@ const Register = () => {
     });
     if (error) {
       console.log(error);
+    } else {
+      // redirect("/blank");
+      console.log("ok");
+      
     }
-    else {
-    redirect('/blank')  
-  }
   };
 
   if (errors) {
@@ -66,7 +71,6 @@ const Register = () => {
             type="email"
             {...register("email", { required: true })}
             name="email"
-            // value={email}
             className="w-full h-[60%] bg-transparent border-2 rounded border-red-50 text-xl p-3"
             placeholder="Email"
             required
@@ -85,7 +89,7 @@ const Register = () => {
         <div className="flex justify-between text-l mt-2 mb-3 "></div>
         <div className="submit">
           <button
-            className="w-[60%] h-10 border-2 rounded border-red-50"
+            className="w-[60%] h-10 border-2 rounded border-red-50 text-[#F6F4F4]"
             type="submit"
             // onClick={handleSubmit((data) => setData(JSON.stringify(data))}
           >
