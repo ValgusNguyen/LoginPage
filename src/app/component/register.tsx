@@ -47,12 +47,12 @@ const Register = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <h1 className="text-4xl text-white ">Create new account</h1>
         <div className="register-link">
-          <p className="text-[#F6F4F4">
+          <p className="text-[#F6F4F4]">
             Already A Member? <a href="#">Log in</a>
           </p>
         </div>
         <div className="relative w-full h-16 mt-7">
-          <h2>Username</h2>
+          <h2 className="text-[#F6F4F4]">Username</h2>
           <input
             type="text"
             {...register("username", { required: true })}
@@ -61,7 +61,7 @@ const Register = () => {
           />
         </div>
         <div className="relative w-full h-16 mt-7">
-          <h2>Email</h2>
+          <h2 className="text-[#F6F4F4]">Email</h2>
           <input
             type="email"
             {...register("email", { required: true })}
@@ -73,7 +73,7 @@ const Register = () => {
           />
         </div>
         <div className="relative w-full h-16 mt-7">
-          <h2>Password</h2>
+          <h2 className="text-[#F6F4F4]">Password</h2>
           <input
             type="password"
             {...register("password", { required: true })}
