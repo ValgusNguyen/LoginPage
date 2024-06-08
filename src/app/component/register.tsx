@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import "./login.css";
 import { useForm } from "react-hook-form";
@@ -6,30 +6,40 @@ import { redirect } from "next/navigation";
 import supabase from "../../../config";
 import { createClient } from "@supabase/supabase-js";
 
-
-const Register =  () => {
-  const {register, handleSubmit, formState: {errors} } = useForm()
-  const onSubmit = (data: any) => registerUser(data)
+const Register = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data: any) => registerUser(data);
   type registerUser = {
     username: string;
     email: string;
     password: string;
-  }
-  const registerUser  = (data: registerUser) => { 
-    supabase.auth.signUp({
-      email: data.email ,
+  };
+  const registerUser = async (data: registerUser) => {
+    const { error } = await supabase.auth.signUp({
+      email: data.email,
       password: data.password,
       options: {
         data: {
           username: data.username,
-        }
-      }
+        },
+      },
     });
+    if (error) {
+      console.log(error);
+    }
+    else {
+    redirect('/blank')  
+  }
   };
+
   if (errors) {
-    console.log(errors.error_description || errors.message)
+    console.log(errors.error_description || errors.message);
   } else {
-    console.log('Check your email for the link!')
+    console.log("Check your email for the link!");
   }
 
   return (
@@ -44,7 +54,8 @@ const Register =  () => {
         <div className="relative w-full h-16 mt-7">
           <h2>Username</h2>
           <input
-            type="text" {...register("username", { required: true })}
+            type="text"
+            {...register("username", { required: true })}
             className="w-full h-[60%] bg-transparent border-2 rounded border-red-50 text-xl p-3"
             required
           />
@@ -52,11 +63,12 @@ const Register =  () => {
         <div className="relative w-full h-16 mt-7">
           <h2>Email</h2>
           <input
-            type="email" {...register("email", { required: true })}
-            name="email" 
+            type="email"
+            {...register("email", { required: true })}
+            name="email"
             // value={email}
-            className="w-full h-[60%] bg-transparent border-2 rounded border-red-50 text-xl p-3" 
-            placeholder="Email" 
+            className="w-full h-[60%] bg-transparent border-2 rounded border-red-50 text-xl p-3"
+            placeholder="Email"
             required
           />
         </div>
